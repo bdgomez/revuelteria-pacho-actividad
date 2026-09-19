@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:la_revuelteria_de_pacho/pantallas/inicioListview.dart';
 
 class InicioSesion extends StatelessWidget {
   const InicioSesion({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String correo = '';
+
     return Scaffold(
       backgroundColor: const Color(0xFFFBF8F2),
       body: SafeArea(
@@ -24,7 +27,11 @@ class InicioSesion extends StatelessWidget {
                     return Container(
                       height: 180,
                       color: Colors.green.shade100,
-                      child: const Icon(Icons.image_not_supported, size: 80, color: Colors.green),
+                      child: const Icon(
+                        Icons.image_not_supported,
+                        size: 80,
+                        color: Colors.green,
+                      ),
                     );
                   },
                 ),
@@ -54,6 +61,9 @@ class InicioSesion extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               TextField(
+                onChanged: (valor) {
+                  correo = valor;
+                },
                 decoration: InputDecoration(
                   hintText: 'nombre@correo.com',
                   prefixIcon: const Icon(Icons.email_outlined, size: 20),
@@ -78,7 +88,10 @@ class InicioSesion extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: '••••••••',
                   prefixIcon: const Icon(Icons.lock_outline, size: 20),
-                  suffixIcon: const Icon(Icons.visibility_off_outlined, size: 20),
+                  suffixIcon: const Icon(
+                    Icons.visibility_off_outlined,
+                    size: 20,
+                  ),
                   filled: true,
                   fillColor: const Color(0xFFEEEAE2),
                   border: OutlineInputBorder(
@@ -107,7 +120,18 @@ class InicioSesion extends StatelessWidget {
 
               // 6. Botón Iniciar Sesión
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => InicioListView(
+                        correo: correo.trim().isEmpty
+                            ? 'usuario@correo.com'
+                            : correo.trim(),
+                      ),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF43A047),
                   foregroundColor: Colors.white,
@@ -143,10 +167,17 @@ class InicioSesion extends StatelessWidget {
               // 8. Botón Continuar con Google
               OutlinedButton.icon(
                 onPressed: () {},
-                icon: const Icon(Icons.g_mobiledata, size: 28, color: Colors.blue),
+                icon: const Icon(
+                  Icons.g_mobiledata,
+                  size: 28,
+                  color: Colors.blue,
+                ),
                 label: const Text(
                   'Continuar con Google',
-                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -162,7 +193,10 @@ class InicioSesion extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('¿No tienes cuenta? ', style: TextStyle(fontSize: 13)),
+                  const Text(
+                    '¿No tienes cuenta? ',
+                    style: TextStyle(fontSize: 13),
+                  ),
                   GestureDetector(
                     onTap: () {},
                     child: const Text(
